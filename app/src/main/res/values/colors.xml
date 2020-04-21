@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#FFC10F</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGood">#0277bd</color>
+    <color name="colorGood_sub">#039be6</color>
+
+    <color name="colorNormal">#398e3d</color>
+    <color name="colorNormal_sub">#48B14E</color>
+
+    <color name="colorBad">#ef6c00</color>
+    <color name="colorBad_sub">#fb8c00</color>
+
+    <color name="colorVeryBad">#c62827</color>
+
+    <color name="colorbarGood">#02639C</color>
+    <color name="colorbarNormal">#307733</color>
+    <color name="colorbarBad">#D56101</color>
+    <color name="colorbarVeryBad">#AF2322</color>
+
+
+</resources>
