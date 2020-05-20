@@ -11,7 +11,8 @@
         android:id="@+id/main_background_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorNormal">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,7 +20,8 @@
             android:layout_marginTop="3dp"
             android:layout_marginRight="10dp"
             android:gravity="right"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <ImageButton
                 android:id="@+id/image_btn_add_location"
@@ -60,7 +62,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:padding="8dp">
+                            android:padding="8dp"
+                            android:background="@color/colorNormal_sub">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -71,8 +74,9 @@
 
                                 <ImageView
                                     android:id="@+id/image_main"
-                                    android:layout_width="160dp"
-                                    android:layout_height="160dp"
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:layout_marginTop="5dp"
                                     android:gravity="center"
                                     android:src="@drawable/iconfinder_normal" />
 
@@ -82,10 +86,10 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
                                     android:gravity="center"
-                                    android:paddingLeft="4dp"
-                                    android:paddingRight="4dp"
-                                    android:layout_marginTop="6dp"
-                                    android:text="보통"
+                                    android:paddingLeft="2dp"
+                                    android:paddingRight="2dp"
+                                    android:layout_marginTop="9dp"
+                                    android:text="--"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                                     android:textColor="@color/colorWhite" />
 
@@ -99,10 +103,10 @@
                                 android:paddingLeft="24dp"
                                 android:paddingTop="2dp"
                                 android:paddingRight="24dp"
-                                android:paddingBottom="8dp"
+                                android:paddingBottom="2dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/colorWhite"
-                                tools:text="미세먼지 값" />
+                                tools:text="---" />
 
                         </LinearLayout>
 
@@ -119,7 +123,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
-                            android:padding="8dp">
+                            android:padding="8dp"
+                            android:background="@color/colorNormal_sub">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -154,7 +159,7 @@
                                 android:paddingBottom="8dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/colorWhite"
-                                tools:text="대전광역시" />
+                                tools:text="---" />
 
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -170,7 +175,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
-                            android:padding="8dp">
+                            android:padding="8dp"
+                            android:background="@color/colorNormal_sub">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -205,7 +211,7 @@
                                 android:paddingBottom="8dp"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                 android:textColor="@color/colorWhite"
-                                tools:text="2020-04-06,14:00" />
+                                tools:text="---" />
 
                         </LinearLayout>
 
@@ -221,7 +227,7 @@
                             android:orientation="horizontal">
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="85dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="7dp"
                                 app:cardCornerRadius="8dp"
@@ -233,7 +239,8 @@
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:orientation="vertical"
-                                    android:padding="8dp">
+                                    android:padding="8dp"
+                                    android:background="@color/colorNormal_sub">
 
                                     <ImageView
                                         android:id="@+id/image_pm25value"
@@ -258,7 +265,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="10"
+                                        android:text="--"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                         android:textColor="@color/colorWhite"
                                         android:textSize="10dp" />
@@ -279,7 +286,8 @@
                                     android:layout_width="85dp"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical"
-                                    android:padding="8dp">
+                                    android:padding="8dp"
+                                    android:background="@color/colorNormal_sub">
 
                                     <ImageView
                                         android:id="@+id/image_coValue"
@@ -304,7 +312,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="10"
+                                        android:text="--"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                         android:textColor="@color/colorWhite"
                                         android:textSize="10dp" />
@@ -323,7 +331,8 @@
                                     android:layout_width="85dp"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical"
-                                    android:padding="8dp">
+                                    android:padding="8dp"
+                                    android:background="@color/colorNormal_sub">
 
                                     <ImageView
                                         android:id="@+id/image_o3Value"
@@ -347,7 +356,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="10"
+                                        android:text="--"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                         android:textColor="@color/colorWhite"
                                         android:textSize="10dp" />
@@ -366,7 +375,8 @@
                                     android:layout_width="85dp"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical"
-                                    android:padding="8dp">
+                                    android:padding="8dp"
+                                    android:background="@color/colorNormal_sub">
 
                                     <ImageView
                                         android:id="@+id/image_no2Value"
@@ -390,13 +400,55 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:text="10"
+                                        android:text="--"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                         android:textColor="@color/colorWhite"
                                         android:textSize="10dp" />
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                app:cardCornerRadius="8dp"
+                                app:cardUseCompatPadding="true">
 
+                                <LinearLayout
+                                    android:id="@+id/card_5"
+                                    android:layout_width="85dp"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:padding="8dp"
+                                    android:background="@color/colorNormal_sub">
+
+                                    <ImageView
+                                        android:id="@+id/image_so2Value"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/iconfinder_normal" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:paddingTop="2dp"
+                                        android:paddingBottom="2dp"
+                                        android:text="이황산가스"
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="10dp" />
+
+                                    <TextView
+                                        android:id="@+id/textview_so2Value_value"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:text="--"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="10dp" />
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
 
                         </LinearLayout>
                     </HorizontalScrollView>

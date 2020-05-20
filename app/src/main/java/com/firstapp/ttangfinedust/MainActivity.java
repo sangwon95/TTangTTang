@@ -35,13 +35,13 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton image_btn_add_location;
-    private ImageView image_main, image_pm25value, image_coValue, image_o3Value, image_no2Value;
-    private TextView textview_state, textview_finedust_value, textview_time, textview_location, textview_pm25value_value, textview_coValue_value, textview_o3Value_value, textview_no2Value_value;
+    private ImageView image_main, image_pm25value, image_coValue, image_o3Value, image_no2Value,image_so2Value;
+    private TextView textview_state, textview_finedust_value, textview_time, textview_location, textview_pm25value_value, textview_coValue_value, textview_o3Value_value, textview_no2Value_value,textview_so2Value_value;
     private SwipeRefreshLayout swipelayout;
-    private LinearLayout main_background_color, head_color, location_color, time_color, card_1, card_2, card_3, card_4;
+    private LinearLayout main_background_color, head_color, location_color, time_color, card_1, card_2, card_3, card_4,card_5;
 
-    private String key ;
-    private String[][] Data = new String[31][7];
+    private String key="" ;
+    private String[][] Data = new String[31][8];
 
     private int city_number = 0;
     private int count = 0;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         image_coValue = findViewById(R.id.image_coValue);
         image_o3Value = findViewById(R.id.image_o3Value);
         image_no2Value = findViewById(R.id.image_no2Value);
+        image_so2Value = findViewById(R.id.image_so2Value);
 
         //Text View
         textview_state = findViewById(R.id.textview_state);
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         textview_coValue_value = findViewById(R.id.textview_coValue_value);
         textview_o3Value_value = findViewById(R.id.textview_o3Value_value);
         textview_no2Value_value = findViewById(R.id.textview_no2Value_value);
+        textview_so2Value_value = findViewById(R.id.textview_so2Value_value);
 
         //background color
         main_background_color = findViewById(R.id.main_background_color);
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         card_2 = findViewById(R.id.card_2);
         card_3 = findViewById(R.id.card_3);
         card_4 = findViewById(R.id.card_4);
+        card_5 = findViewById(R.id.card_5);
 
         //SwipeRefreshLayout
         swipelayout= findViewById(R.id.swipelayout);
@@ -91,22 +94,26 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Toast.makeText(MainActivity.this,"네트워크 확인 바랍니다.",Toast.LENGTH_SHORT).show();
         }
+        SharedPreferences data = getSharedPreferences("data", MODE_PRIVATE);
+
 
         //앱 첫 실행 여부 확인
         new Thread(new Runnable() {
             @Override
             public void run() {
                 SharedPreferences data = getSharedPreferences("data", MODE_PRIVATE);
+                if (data.getString("dataTime", null) == null && data.getString("location",null)==null) {
 
-                if (data.getString("dataTime", null) == null) {
                     InitialSetting();
+                    Log.e("업데이트(InitialSetting)", "실행...");
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        sendData();
-                    }
-                });
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            sendData();
+                            Log.e("업데이트(sendData)", "실행...");
+                        }
+                    });
 
 
             }
@@ -126,11 +133,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 Update();
-                Toast.makeText(MainActivity.this,"새로고침 완료",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"최신화 완료",Toast.LENGTH_SHORT).show();
                 swipelayout.setRefreshing(false);
             }
         });
-
+/*
+        Intent intent  = new  Intent(MainActivity.this,MyService.class);
+        startService(intent);*/
 
     }
 
@@ -161,9 +170,9 @@ public class MainActivity extends AppCompatActivity {
                 sendData();
             } else {   // RESULT_CANCEL
                 Toast.makeText(MainActivity.this, "데이터를 가져오지 못했습니다. 다시 시도 바랍니다.", Toast.LENGTH_LONG).show();
-            }
+}
         }
-    }
+                }
 
     //파싱된 데이터 불러오기
     private void sendData() {
@@ -172,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
         String dataTime = data.getString("dataTime", null);
         String cityName = data.getString("cityName", null);
+        String so2Value = data.getString("so2Value", null);
         String coValue = data.getString("coValue", null);
         String o3Value = data.getString("o3Value", null);
         String no2Value = data.getString("no2Value", null);
@@ -179,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         String pm25Value = data.getString("pm25Value", null);
         String location = data.getString("location", null);
         Window window = getWindow();
+
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
@@ -319,6 +330,28 @@ public class MainActivity extends AppCompatActivity {
                 textview_no2Value_value.setText(Double.parseDouble(no2Value) + "㎍/㎥");
                 card_4.setBackgroundColor(getResources().getColor(R.color.colorVeryBad));
             }
+            //이황산가스
+            if (Double.parseDouble(so2Value) < 0.02) {
+                image_so2Value.setImageResource(R.drawable.iconfinder_good);
+                image_so2Value.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
+                textview_so2Value_value.setText(Double.parseDouble(so2Value) + "㎍/㎥");
+                card_5.setBackgroundColor(getResources().getColor(R.color.colorGood_sub));
+            } else if (Double.parseDouble(so2Value) < 0.05) {
+                image_so2Value.setImageResource(R.drawable.iconfinder_normal);
+                image_so2Value.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
+                textview_so2Value_value.setText(Double.parseDouble(so2Value) + "㎍/㎥");
+                card_5.setBackgroundColor(getResources().getColor(R.color.colorNormal_sub));
+            } else if (Double.parseDouble(so2Value) < 0.51) {
+                image_so2Value.setImageResource(R.drawable.iconfinder_bad);
+                image_so2Value.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
+                textview_no2Value_value.setText(Double.parseDouble(so2Value) + "㎍/㎥");
+                card_5.setBackgroundColor(getResources().getColor(R.color.colorBad_sub));
+            } else if (Double.parseDouble(so2Value) > 0.151) {
+                image_so2Value.setImageResource(R.drawable.iconfinder_verybad);
+                image_so2Value.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
+                textview_so2Value_value.setText(Double.parseDouble(so2Value) + "㎍/㎥");
+                card_5.setBackgroundColor(getResources().getColor(R.color.colorVeryBad));
+            }
 
             textview_location.setText(location + " " + cityName);
             textview_time.setText(dataTime);
@@ -378,7 +411,14 @@ public class MainActivity extends AppCompatActivity {
                             initial.putString("cityName", cityName);
                             initial.commit();
                             Log.d("cityName", cityName);
-                        } else if (tag.equals("coValue")) {//일산화탄소
+                        }
+                        else if (tag.equals("so2Value")) {//이황산가스
+                            parser.next();
+                            String so2Value = parser.getText();
+                            initial.putString("so2Value", so2Value);
+                            initial.commit();
+                            Log.e("so2Value", so2Value);}
+                        else if (tag.equals("coValue")) {//일산화탄소
                             parser.next();
                             String coValue = parser.getText();
                             initial.putString("coValue", coValue);
@@ -456,26 +496,26 @@ public class MainActivity extends AppCompatActivity {
 
         initial.putString("dataTime", Data[position][0]);
         initial.putString("cityName", Data[position][1]);
-        initial.putString("coValue", Data[position][2]);
-        initial.putString("o3Value", Data[position][3]);
-        initial.putString("no2Value", Data[position][4]);
-        initial.putString("pm10Value", Data[position][5]);
-        initial.putString("pm25Value", Data[position][6]);
+        initial.putString("so2Value", Data[position][2]);
+        initial.putString("coValue", Data[position][3]);
+        initial.putString("o3Value", Data[position][4]);
+        initial.putString("no2Value", Data[position][5]);
+        initial.putString("pm10Value", Data[position][6]);
+        initial.putString("pm25Value", Data[position][7]);
         initial.commit();
     }
 
 
     private void runSearch() {
-
-        SharedPreferences data = getSharedPreferences("data", MODE_PRIVATE);
         //Data Clear
         for (int i = 0; i < 31; i++) {
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < 8; j++) {
                 Data[i][j] = null;
             }
         }
         count = 0;
 
+        SharedPreferences data = getSharedPreferences("data", MODE_PRIVATE);
         String search_city_name = data.getString("location", null);
 
         switch (search_city_name) {
@@ -542,7 +582,6 @@ public class MainActivity extends AppCompatActivity {
 
             int eventType = parser.getEventType();
 
-
             while (eventType != XmlPullParser.END_DOCUMENT) {
 
                 switch (eventType) {
@@ -563,30 +602,36 @@ public class MainActivity extends AppCompatActivity {
                             parser.next();
                             String cityName = parser.getText();
                             Data[count][1] = cityName;
-                        } else if (tag.equals("coValue")) {//일산화탄소
+
+                        } else if (tag.equals("so2Value")) {//이황산가스
+                            parser.next();
+                            String so2Value = parser.getText();
+                            Data[count][2] = so2Value;
+
+                        }else if (tag.equals("coValue")) {//일산화탄소
                             parser.next();
                             String coValue = parser.getText();
-                            Data[count][2] = coValue;
+                            Data[count][3] = coValue;
 
                         } else if (tag.equals("o3Value")) {//오존
                             parser.next();
                             String o3Value = parser.getText();
-                            Data[count][3] = o3Value;
+                            Data[count][4] = o3Value;
 
                         } else if (tag.equals("no2Value")) {//이산화질소
                             parser.next();
                             String no2Value = parser.getText();
-                            Data[count][4] = no2Value;
+                            Data[count][5] = no2Value;
 
                         } else if (tag.equals("pm10Value")) {//미세먼지
                             parser.next();
                             String pm10Value = parser.getText();
-                            Data[count][5] = pm10Value;
+                            Data[count][6] = pm10Value;
 
                         } else if (tag.equals("pm25Value")) {//초미세먼지
                             parser.next();
                             String pm25Value = parser.getText();
-                            Data[count][6] = pm25Value;
+                            Data[count][7] = pm25Value;
                             count++;
 
                         }
@@ -617,13 +662,18 @@ public class MainActivity extends AppCompatActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
+
                 Update();
+                Log.e("업데이트(onStart)","실행...");
             }
         };
 
         Timer timer = new Timer();
-        timer.schedule(timerTask, 5000, 150000);
+        timer.schedule(timerTask, 1000, 900000);
 
     }
+
+
+
 }
 

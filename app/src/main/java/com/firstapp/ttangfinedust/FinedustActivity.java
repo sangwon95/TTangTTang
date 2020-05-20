@@ -33,10 +33,10 @@ public class FinedustActivity extends AppCompatActivity implements TextView.OnEd
     private ArrayList<String> city = new ArrayList<>();
     private ArrayList<String> data = new ArrayList<>();
 
-    private String key ;
+    private String key="" ;
     private int city_number = 0;
-    private String dataTime, cityName, pm10Value, pm25Value, coValue, o3Value, no2Value;
-    private String[][] Data = new String[31][7];
+    private String dataTime, cityName, pm10Value, pm25Value, coValue, o3Value, no2Value,so2Value;
+    private String[][] Data = new String[31][8];
     private int count = 0;
 
     @Override
@@ -58,7 +58,7 @@ public class FinedustActivity extends AppCompatActivity implements TextView.OnEd
     public ArrayList<String> getXmlData() {
         //Data Clear
         for (int i = 0; i < 31; i++) {
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < 8; j++) {
                 Data[i][j] = null;
 
             }
@@ -154,30 +154,36 @@ public class FinedustActivity extends AppCompatActivity implements TextView.OnEd
                                 parser.next();
                                 cityName = parser.getText();
                                 Data[count][1] = cityName;
-                            } else if (tag.equals("coValue")) {//일산화탄소
+                            }
+                            else if (tag.equals("so2Value")) {//이황산가스
+                                parser.next();
+                                so2Value = parser.getText();
+                                Data[count][2] = so2Value;
+                            }
+                            else if (tag.equals("coValue")) {//일산화탄소
                                 parser.next();
                                 coValue = parser.getText();
-                                Data[count][2] = coValue;
+                                Data[count][3] = coValue;
 
                             } else if (tag.equals("o3Value")) {//오존
                                 parser.next();
                                 o3Value = parser.getText();
-                                Data[count][3] = o3Value;
+                                Data[count][4] = o3Value;
 
                             } else if (tag.equals("no2Value")) {//이산화질소
                                 parser.next();
                                 no2Value = parser.getText();
-                                Data[count][4] = no2Value;
+                                Data[count][5] = no2Value;
 
                             } else if (tag.equals("pm10Value")) {//미세먼지
                                 parser.next();
                                 pm10Value = parser.getText();
-                                Data[count][5] = pm10Value;
+                                Data[count][6] = pm10Value;
 
                             } else if (tag.equals("pm25Value")) {//초미세먼지
                                 parser.next();
                                 pm25Value = parser.getText();
-                                Data[count][6] = pm25Value;
+                                Data[count][7] = pm25Value;
                                 count++;
                                 city.add("\n" + "  지역: " + cityName + "\n" + "  미세먼지: " + pm10Value + "㎍/㎥" + "   초미세먼지: " + pm25Value + "㎍/㎥" + "\n" + "  측정시간: " + dataTime + "\n");
 
@@ -244,19 +250,18 @@ public class FinedustActivity extends AppCompatActivity implements TextView.OnEd
 
                                             initial.putString("dataTime", Data[position][0]);
                                             initial.putString("cityName", Data[position][1]);
-                                            initial.putString("coValue", Data[position][2]);
-                                            initial.putString("o3Value", Data[position][3]);
-                                            initial.putString("no2Value", Data[position][4]);
-                                            initial.putString("pm10Value", Data[position][5]);
-                                            initial.putString("pm25Value", Data[position][6]);
+                                            initial.putString("so2Value", Data[position][2]);
+                                            initial.putString("coValue", Data[position][3]);
+                                            initial.putString("o3Value", Data[position][4]);
+                                            initial.putString("no2Value", Data[position][5]);
+                                            initial.putString("pm10Value", Data[position][6]);
+                                            initial.putString("pm25Value", Data[position][7]);
                                             initial.putString("location", location);
                                             initial.putInt("position", position);
                                             initial.commit();
 
                                             setResult(RESULT_OK, intent);
                                             finish();
-
-
                                         }
                                     });
 
